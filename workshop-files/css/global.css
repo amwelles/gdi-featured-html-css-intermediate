@@ -44,3 +44,29 @@ body {
     background: #09c;
     color: white;
 }
+.hero {
+    background: url(../images/zebra-hero.jpg) center;
+    color: #fafafa;
+    text-align: center;
+    min-height: 350px;
+    padding: 25px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hero-image {
+    width: 150px;
+    height: auto;
+    border-radius: 50%;
+}
+.hero-headline {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+.hero-content {
+    background: rgba(0,0,0,.25);
+    padding: .5em;
+    margin-top: .5em;
+}
