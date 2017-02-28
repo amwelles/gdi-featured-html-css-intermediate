@@ -828,72 +828,63 @@ body {
             <section>
                 <h3>3 Column: HTML</h3>
                 <p>Our code should look something like this:</p>
-                <pre><code class="xml">&lt;section id="main-content">
-    <h3>...</h3>
-    &lt;section class="column">
-        &lt;img src="images/africa.png" alt="Africa">
-        &lt;h4>My Home&lt;/h4>
-        &lt;p>Wild zebras live in Africa.&lt;/p>
-        &lt;a href="home.html" class="btn">See my home&lt;/a>
-    &lt;/section>   
-    &lt;!-- Repeat .column x3 -->
+                <pre><code class="xml">&lt;section class="main-content">
+    <div class="container">
+        <h3>...</h3>
+        <div class="column-container"
+            &lt;section class="column">
+                &lt;img src="images/africa.png" alt="Africa" class="column-image">
+                &lt;h4 class="column-headline">My Home&lt;/h4>
+                &lt;p class="column-content">Wild zebras live in Africa.&lt;/p>
+                &lt;a href="home.html" class="button">See my home&lt;/a>
+            &lt;/section>   
+            &lt;!-- Repeat .column x3 -->
+        </div>
+    </div>
 &lt;/section> </code></pre> 
-
-            </section>
-            <section>
-                <h3>3 Column: CSS</h3>
-                <p>Now that we have our 3 columns, we want them to appear next to each other. We can do this by floating them all left.</p>
-                <pre><code class="css">.column {
-    float: left;
-    width: 30%;
-    padding: 15px;
-}        </code></pre>
-                <p>We used 30%, because it lets us perfectly spaced columns without doing math! Don't forget padding (or margin) to give the columns some space.</p>
+                <p>We add <code>.container</code> from before so it won't bump into the edges of our browser.</p>
             </section>
             <section>
                 <h3>Wow. Large Images.</h3>
-                <p>The images didn't scale with the columns, because they ignore constraints like
-                    <code>div</code> width, unless you tell them to do so.</p>
-                <pre><code class="css">.column img {
-    width: 90%;
-    max-width: 90%;
+                <p>The images are way too huge. Let's fix this across our whole page.</p>
+                <pre><code class="css">img {
+    max-width: 100%;
+    height: auto;
 }</code></pre>
                 <p>There we go!</p>
-                <p>Let's add a border radius to it too, because we &hearts; circles</p>
-                <pre><code class="css">.column img {
-    width: 90%;
-    max-width: 90%;
+                <p>Let's give our <code>.column-image</code> a default width and add a border radius, because we &hearts; circles</p>
+                <pre><code class="css">.column-image {
+    width: 130px;
     border-radius: 50%;
 }</code></pre>
             </section>
             <section>
-                <h3>3 Column: Container</h3>
-                <p>We've got our 3 column layout set, our images are scaled based on the width of the column, but our columns are still bumping against the edges of the browser.</p>
-                <pre><code class="xml">&lt;section id="main-content">
-    <div class="container">
-        <h3>...</h3>
-        &lt;section class="column">
-            ...
-        &lt;/section>
-        &lt;section class="column">
-            ...
-        &lt;/section>
-        &lt;section class="column">
-            ...
-        &lt;/section>
-    </div>
-&lt;/section></code></pre>
-                <p>Adding the container, which we already defined the width of, makes everything line up.</p>
+                <h3>3 Column: CSS</h3>
+                <p>Now that we have our 3 columns, we want them to appear next to each other. We can do this by using flexbox on our <code>.column-container</code> and adding a few properties to <code>.column</code>.</p>
+                <pre><code class="css">.column-container {
+    display: flex;
+    margin: 0 -10px;
+}
+.column {
+    flex: 1 1 33.33%;
+    padding: 0 10px;
+}</code></pre>
+                <p>We used <code>flex: 1 1 33.33%</code>, because it lets us perfectly spaced columns without doing math! Don't forget padding and (negative) margin to give the columns some space.</p>
             </section>
             <section>
                 <aside class="notes">End of Class 2 in 4 week sequence</aside>
                 <h3>Develop It!</h3>
                 <p>Let's make some small tweaks to these columns
                     <ul>
+                        <li>Center the <code>.main-content</code> text</li>
                         <li>Adjust the font size of the main header of the content area</li>
                         <li>Adjust the font size of the headers in the columns - try changing their colors too</li>
                         <li>Add a border to the images to make them stand out a bit more</li>
+                        <li>Create a button class with a background color and text color</li>
                     </ul>
+            </section>
+            <section>
+                <h1>See you next week!</h1>
             </section>
                 <section data-background="#f05b62">
                     <h1 style="color: #fafafa;">SVG Graphics</h1>
@@ -946,11 +937,11 @@ body {
             </section>
             <section>
                 <h3>Social Links: HTML</h3>
-                <pre><code class="html">&lt;section id="social">
-    &lt;ul>
-        &lt;li>
-            &lt;a href="..">
-                &lt;img src="images/facebook.svg" alt="Facebook" />
+                <pre><code class="xml">&lt;section class="social">
+    &lt;ul class="social-menu">
+        &lt;li class="social-item">
+            &lt;a href="https://www.facebook.com/" class="social-link">
+                &lt;img src="images/facebook.svg" alt="Facebook" class="social-icon">
             &lt;/a>
         &lt;/li>
         &lt;!-- Repeat for all social links you want to include -->
@@ -961,38 +952,42 @@ body {
             </section>
             <section>
                 <h3>Social Links: CSS</h3>
-                <p>We'll need to add a background, some padding, account for the floated list items.</p>
-                <pre><code class="css">#social {
-    background: #57BEC5;
-    color: #fafafa;
-    padding: 25px 0;
-    overflow: hidden;
+                <p>We'll need to add a background, some padding, and use flexbox.</p>
+                <pre><code class="css">.social {
+    background: #888;
+    margin-top: 2em;
 }
-#social li {
-    float: left;
-    width: auto;
-    padding: 20px;
+.social-menu {
+    display: flex;
+}
+.social-link {
+    display: block;
+    padding: .75em;
+    border-radius: 50%;
+    background: #555;
+}
+.social-icon {
+    width: 20px;
+    vertical-align: middle;
 }</code></pre> 
             </section>
             <section>
                 <h3>Centering the List</h3>
-                <p>First we should put our social links in a container! We'll also add in a headline.</p>
-                <pre><code class="xml">&lt;section id="social">
-    &lt;div class="container">
-        &lt;h3>...&lt;/h3>
-        &lt;ul>
-            ...
-        &lt;/ul>
-    &lt;/div>
-&lt;/section></code></pre>
-                <p>Next we'll center the
-                    <code>ul</code> with a very <a href="http://matthewjamestaylor.com/blog/beautiful-css-centered-menus-no-hacks-full-cross-browser-support" target="_blank">flexible technique</a> that will allow us to have a list of any width</p>
+                <p>Use the <code>align-items</code> and <code>justify-content</code> properties to center the list items. We'll also space each item out using the <code>+</code> CSS selector.</p>
+                <pre><code class="css">.social-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5em 0;
+}
+.social-item + .social-item {
+    margin-left: .5em;
+}</code></pre>
             </section>
             <section>
                 <h3>Develop It!</h3>
                 <ul>
-                    <li>Style the headline using the Descendant Selector</li>
-                    <li>If you have Illustrator or another program to modify .svg graphics, change the colors to match your site</li>
+                    <li>Add background colors to your social links using the <a href="https://brandcolors.net/" target="_blank">official brand colors</a></li>
                 </ul>
             </section>
 
@@ -1029,23 +1024,22 @@ body {
                 <ol>
                     <li>Search the hundreds of font families, then add them to your collection.</li>
                     <li>Compare and refine the collection - think about what styles you NEED.</li>
-                    <li>Grab the code that Google prepares for you and add it to your site!</li>
+                    <li>Grab the code that Google prepares for you and add it to the tippy-top of your CSS file!</li>
                 </ol>
-                <pre><code class = "html">
-  @import url(http://fonts.googleapis.com/
-  css?family=Lato:300,400,700,300italic,400italic|Bree+Serif);
+                <pre><code class = "css">
+  @import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|PT+Sans:400,400i,700,700i');
 </code></pre>
-                <a href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic|Bree+Serif" target="_blank">What does that do?</a>
+                <a href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|PT+Sans:400,400i,700,700i" target="_blank">What does that do?</a>
             </section>
 
             <section>
                 <h3>Integrating into the CSS</h3>
                 <pre><code class = "html">
-body{
-  font-family: 'Lato', sans-serif;
+body {
+    font-family: "Merriweather", serif;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Bree Serif', serif;
+    font-family: "PT Sans", sans-serif;
 }
 </code></pre>
             </section>
@@ -1165,7 +1159,7 @@ h1, h2, h3, h4, h5, h6 {
         <h2>text-shadow</h2>
         <pre><code>#example1 { text-shadow: 2px 2px 10px red; }
 
-#example2 {
+#example2 { /* don't try this at home */
 text-shadow: 1px 1px 10px red,
             10px 10px 10px orange,
             15px 15px 10px yellow,
@@ -1320,6 +1314,10 @@ background-image: linear-gradient(bottom right, red, white);
             <h3>Develop It!</h3>
             <aside class="notes">End of Class 3 in 4 week sequence</aside>
             <p>Add a background gradient to a section of your site</p>
+        </section>
+
+        <section>
+            <h1>See you next week!</h1>
         </section>
         
 <!-- Transitions-->
@@ -1585,10 +1583,10 @@ background-image: linear-gradient(bottom right, red, white);
             <h2>Media Queries</h2>
             <p>Media queries apply certain CSS in certain situations.</p>
             <ul>
-             <li>Print Media</li>
-              <li>iPhone</li>
-              <li>iPad</li>
-              <li>Even larger screens</li>
+                <li>Print Media</li>
+                <li>768px and up</li>
+                <li>1024px and up</li>
+                <li>1600px and up</li>
             </ul>
           </section>
           <section>
@@ -1602,17 +1600,13 @@ background-image: linear-gradient(bottom right, red, white);
           </section>
           <section>
             <h2>Standard MQs</h2>
-            <p>For devices that have dimensions no smaller than 320px and are not larger than 480px</p>
-<pre><code>/* Smartphones (portrait and landscape) */
-@media only screen and (min-device-width : 320px) 
-and (max-device-width : 480px) {
+            <p>Try not to think in terms of devices! These are only starting points, and you'll likely need to adjust them.</p>
+<pre><code>/* Medium screen overrides */
+@media only screen and (max-device-width : 1024px) {
 /* Styles */
 }</code></pre>
-<p>iPad dimensions with the orientation in landscape.</p>
-<pre><code>/* iPads (landscape) ----------- */
-@media only screen and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : landscape) {
+<pre><code>/* Small screen overrides */
+@media only screen and (max-device-width : 768px) {
 /* Styles */
 }</code></pre>
           </section>
@@ -1632,7 +1626,7 @@ and (orientation : landscape) {
             <p>Mobile first allows us to simplify the user flow to its basic elements and then enhance it as the screen size increases.</p>
           </section>
           <section>
-            <h2>iPhone:</h2>
+            <h2>Smartphone:</h2>
             <img src="images/media-queries-phone.png" />
           </section>
           <section>
@@ -1845,6 +1839,15 @@ p {
   color: #199FD9;
 }</code></pre>
 </section>
+            <section>
+                <h2>Thank you for attending and supporting GDI!</h2>
+                <p>Please feel free to reach out to me at anytime. I love helping!</p>
+                <ul>
+                    <li>Autumn Welles</li>
+                    <li><a href="https://twitter.com/amwelles" target="_blank">@amwelles</a> on Twitter</li>
+                    <li><a href="mailto:amwelles@gmail.com">amwelles@gmail.com</a></li>
+                </ul>
+            </section>
         </div>
         <footer>
             <div class="copyright">
